@@ -125,7 +125,8 @@ function EditBookInfo() {
         <S.Row>
           {/* <img src={`http://localhost:8080/upload/${bookInfo.img}`} alt="" width={200}  height={260} /> */}
           {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${bookInfo.img}`} alt="도서이미지" width={200}  height={260} /> */}
-          <img src={`${url}/upload/${bookInfo.img}`} alt="도서이미지" width={200}  height={260} />
+          {/* <img src={`${url}/upload/${bookInfo.img}`} alt="도서이미지" width={200}  height={260} /> */}
+          <img src={`${url}/upload/${bookInfo.saveImg}`} alt="도서이미지" width={200}  height={260} />
         </S.Row>
       </Content>
       <BottomButtonsWrapper>

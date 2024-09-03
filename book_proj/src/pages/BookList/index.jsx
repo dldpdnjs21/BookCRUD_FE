@@ -40,11 +40,11 @@ function BookList() {
   // const list = getUsersFromStorage() || [];
   const [list,setList] = useState([]);
   const navigate = useNavigate();
-
+  const [page,setPage]=useState(1);
   
   // useEffect(콜백,연관배열);
   useEffect(()=>{
-    getBooksFromStorage(setList);
+    getBooksFromStorage(setList,page);
   },[]);
 
   let render = <Title>등록된 도서가 없습니다.</Title>;
@@ -76,7 +76,8 @@ function BookList() {
               ))}
           </Tbody>
     </Table>
-    <button>이전</button> <button>다음</button>
+    <button onClick={()=>{ setPage(page-1); getBooksFromStorage(setList,page-1);}}>이전</button> 
+    <button onClick={()=>{ setPage(page+1); getBooksFromStorage(setList,page+1); }}>다음</button>
     </>
   }
   return (
