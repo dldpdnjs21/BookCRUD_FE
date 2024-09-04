@@ -76,8 +76,10 @@ function BookList() {
               ))}
           </Tbody>
     </Table>
-    <button onClick={()=>{ setPage(page-1); getBooksFromStorage(setList,page-1);}}>이전</button> 
-    <button onClick={()=>{ setPage(page+1); getBooksFromStorage(setList,page+1); }}>다음</button>
+    <div>
+      <button onClick={()=>{ setPage(page-1); getBooksFromStorage(setList,page-1);}}>이전</button> 
+      <button style={ {margin:'10px'} } onClick={()=>{ setPage(page+1); getBooksFromStorage(setList,page+1); }}>다음</button>
+    </div>
     </>
   }
   return (

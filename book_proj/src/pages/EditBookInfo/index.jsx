@@ -14,6 +14,7 @@ import {
   BottomButtonsWrapper,
 } from "styles";
 import { ROUTE } from "Route";
+import axios from "axios";
 
 
 
@@ -26,10 +27,13 @@ function EditBookInfo() {
   // const userInfo = findUserInfoById(userId);
 
   const [bookInfo, setBookInfo ] = useState({});
+  const [upfile, setUpfile ] = useState(null);
+  const [isChangeImg, setIsChangeImg] = useState(false);
+  const [change,setChange] = useState(true);
  
   useEffect(()=>{
     findBookInfoByIsbn(bookIsbn, setBookInfo); 
-  },[]);
+  },[change]);
 
   const navigate = useNavigate();
 
@@ -96,6 +100,23 @@ function EditBookInfo() {
     navigate(ROUTE.LIST);
   };
 
+  const handleUpfileChange = (event)=>{
+    setUpfile(event.target.files[0]);
+  }
+
+  const updateBookImg = ()=>{
+     //이미지 파일 수정 (파일업로드)
+     const formData = new FormData();
+     formData.append("isbn", bookInfo.isbn);
+     formData.append("upfile",upfile);
+
+     axios.post(`${url}/book/updateImage`,
+                 formData,
+                 {headers:{'ContentType':'multipart/form-data'}});
+     alert('이미지 수정되었습니다.');
+     setChange(!change);
+  }
+
   return (
     <Wrapper>
       <Title>도서 정보 수정</Title>
@@ -127,6 +148,15 @@ function EditBookInfo() {
           {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${bookInfo.img}`} alt="도서이미지" width={200}  height={260} /> */}
           {/* <img src={`${url}/upload/${bookInfo.img}`} alt="도서이미지" width={200}  height={260} /> */}
           <img src={`${url}/upload/${bookInfo.saveImg}`} alt="도서이미지" width={200}  height={260} />
+        </S.Row>
+        <S.Row>
+            {  !isChangeImg  &&  <button onClick={()=>{ setIsChangeImg(true); }}>변경</button>  }
+           {  isChangeImg  && <> 
+              <input style={{margin:'10px'}} type="file" onChange={handleUpfileChange} />
+              <button onClick={()=>{ updateBookImg(); }}>이미지변경</button>
+
+                             </> }
+           
         </S.Row>
       </Content>
       <BottomButtonsWrapper>
