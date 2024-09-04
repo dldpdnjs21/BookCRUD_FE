@@ -13,13 +13,14 @@ import BookList from "pages/BookList";
 function App() {
   const [login, setLogin] = useState(false);
   const [name, setName] = useState("");
+  const [list,setList] = useState([]);
 
   return (
     <BrowserRouter>
-      <Header login={login} setLogin={setLogin} name={name} />
+      <Header login={login} setLogin={setLogin} name={name}  setList={setList} />
       <Routes>
         <Route path="/" element={<ButtonMenu />} />
-        <Route path="/list" element={<BookList />} />
+        <Route path="/list" element={<BookList list={list} setList={setList}/>   } />
         <Route path="/regist" element={<RegistBook />} />
         <Route path="/edit/:userId" element={<EditBookInfo />} />
         <Route
